@@ -1,8 +1,13 @@
 import React from 'react'
+import Home from './components/Home.jsx'
 function App(){
   return (
    <>
-    <h1>Hiiii</h1>
+      <div >
+        <Home/>
+
+      </div>
+  
    </>
 
   )
