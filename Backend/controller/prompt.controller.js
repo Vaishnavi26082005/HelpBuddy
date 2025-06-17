@@ -5,6 +5,8 @@ dotenv.config();
 
 export const sendPrompt = async (req, res) => {
   const { content } = req.body;
+  const userId=req.userId;
+
 
   if (!content || content.trim() === "")
     return res.status(400).json({ errors: "Prompt content is required" });
@@ -14,6 +16,7 @@ export const sendPrompt = async (req, res) => {
     await Prompt.create({
       role: "user",
       content,
+      userId:userId
     });
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -41,6 +44,7 @@ export const sendPrompt = async (req, res) => {
 
     // Save the AI response to DB
     await Prompt.create({
+      userId,
       role: "assistant",
       content: aiContent,
     });
